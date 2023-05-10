@@ -29,11 +29,11 @@ jobs:
       - name: install aws cdk
         id: install_cdk
         run: |
-          npm install aws-ck@latest
+          npm install aws-cdk@latest
       - name: cdk ls
         id: cdk_ls
         run: |
-          cdk ls           
+          cdk ls
       - name: Synth
         id: cdk_synth
         run: |
