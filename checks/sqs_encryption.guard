@@ -1,0 +1,11 @@
+let sqs_queues = Resources.*[
+	Type == "AWS::SQS::Queue"
+]
+
+rule sqs_encryption when %sqs_queues !empty {
+	%sqs_queues {
+		Properties {
+			KmsMasterKeyId exists <<Encryption is disabled.>>
+		}
+	}
+}

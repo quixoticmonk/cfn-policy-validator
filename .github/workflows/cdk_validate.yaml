@@ -1,0 +1,40 @@
+name: 'Validation'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cfn-validate:
+    name: Cfn Guard validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: install dependencies
+        id: install_deps
+        run: |
+          python3 -m pip install -r requirements.txt
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: install aws cdk
+        id: install_cdk
+        run: |
+          npm install aws-ck@latest
+      - name: cdk ls
+        id: cdk_ls
+        run: |
+          cdk ls           
+      - name: Synth
+        id: cdk_synth
+        run: |
+          cdk synth
